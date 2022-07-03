@@ -12,12 +12,12 @@ class CategoryController extends Controller
     {
         $kategori = Category::latest()->paginate(10);
 
-        return view('admin/category/index', compact('kategori'));
+        return view('admin.category.index', compact('kategori'));
     }
 
     public function create()
     {
-        return view('admin/category/create');
+        return view('admin.category.create');
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class CategoryController extends Controller
     {
         $kategori = Category::whereId($id)->first();
 
-        return view('admin/category/edit', compact('kategori'));
+        return view('admin.category.edit', compact('kategori'));
     }
 
     public function update(Request $request, $id)

@@ -56,6 +56,9 @@
 
         @stack('modals')
 
+        {{-- ck editor --}}
+        @yield('ck-editor')
+
         <!-- General JS Scripts -->
         <script src="{{ asset('stisla/js/modules/jquery.min.js') }}"></script>
         <script defer async src="{{ asset('stisla/js/modules/popper.js') }}"></script>
