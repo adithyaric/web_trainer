@@ -23,6 +23,6 @@ Route::group(["middleware" => ['auth:sanctum', 'verified']], function () {
 });
 
 Route::resource('kategori', CategoryController::class);
-Route::resource('/post', PostController::class);
+Route::resource('post', PostController::class);
 Route::get('/post/{id}/konfirmasi', [PostController::class, 'konfirmasi']);
 Route::get('/post/{id}/destroy', [PostController::class, 'destroy']);

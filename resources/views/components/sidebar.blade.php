@@ -18,6 +18,19 @@ $links = [
         "text" => "User",
         "is_multi" => true,
     ],
+    [
+        "href" => [
+            [
+                "section_text" => "Main",
+                "section_list" => [
+                    ["href" => "kategori.index", "text" => "Data Kategori"],
+                    ["href" => "post.index", "text" => "Data Post"]
+                ]
+            ]
+        ],
+        "text" => "Main",
+        "is_multi" => true,
+    ],
 ];
 $navigation_links = array_to_object($links);
 @endphp

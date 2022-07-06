@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -55,19 +56,54 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::whereId($id)->firstOrFail();        
+        $post = Post::whereId($id)->firstOrFail();
         return view('admin.post.show', compact('post'));
 
     }
 
     public function edit($id)
     {
-        //
+        $kategori = Category::get();
+        $post = Post::whereId($id)->firstOrFail();
+        return view('admin.post.edit', compact('post', 'kategori'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'sampul' => 'required|mimes:jpg,jpeg,png',
+            'konten' => 'required',
+            'kategori' => 'required',
+        ]);
+
+        $data = [
+            'title' => $request->title,
+            'konten' => $request->konten,
+            'category_id' => $request->kategori,
+            'slug' => Str::slug($request->judul, '-'),            
+        ];
+
+        $post = Post::select('sampul', 'id')->whereId($id)->first();
+        if ($request->sampul) {
+            File::delete('upload/post/' . $post->sampul);
+
+            $sampul = time() . '-' . $request->sampul->getClientOriginalName();
+            $request->sampul->move('upload/post', $sampul);
+
+            $data['sampul'] = $sampul;
+        }
+
+        $post->update($data);        
+
+        $request->session()->flash('sukses', '
+            <div class="alert alert-success" role="alert">
+                Data berhasil diubah
+            </div>
+        ');
+
+        return redirect('/post');
+
     }
 
     public function destroy($id)
