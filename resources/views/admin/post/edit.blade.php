@@ -30,7 +30,8 @@
             <div class="col-md-10">
                 <div class="form-group">
                     <label for="sampul">Sampul</label>
-                    <input type="file" class="form-control" id="sampul" name="sampul">
+                    <input type="file" class="form-control" id="sampul" name="sampul"
+                        value="{{ old('sampul') ? old('sampul') : $post->sampul }}">
                     @error('sampul')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -50,6 +51,7 @@
                 </div>
             </div>
         </div>
+        @include('components.card-code-snippet')
         <div class="form-group">
             <label for="editor">Konten</label>
             <textarea class="form-control" id="editor" rows="10" name="konten">{{ old('konten') ? old('konten') : $post->konten }}</textarea>

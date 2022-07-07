@@ -39,6 +39,7 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+        @include('components.card-code-snippet')
         <div class="form-group">
             <label for="editor">Konten</label>
             <textarea class="form-control" id="editor" rows="10" name="konten">{{ old('konten') }}</textarea>

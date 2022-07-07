@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="{{ asset('stisla/css/components.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/notyf/notyf.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('prism/prism.css') }}">
 
         <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-shims.min.css" media="all">
         <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free-v4-font-face.min.css" media="all">
@@ -29,7 +30,7 @@
         <!-- Scripts -->
         <script defer src="{{ asset('vendor/alpine.js') }}"></script>
     </head>
-    <body class="antialiased">
+    <body class="antialiased line-numbers">
         <div id="app">
             <div class="main-wrapper">
                 @include('components.navbar')
@@ -77,6 +78,7 @@
 
         <livewire:scripts />
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ asset('prism/prism.js') }}" defer></script>
 
         @isset($script)
             {{ $script }}

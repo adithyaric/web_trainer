@@ -6,8 +6,8 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -39,6 +39,7 @@ class PostController extends Controller
             'title' => $request->title,
             'slug' => Str::slug($request->title, '-'),
             'sampul' => $sampul,
+            'excerpt' => Str::limit(strip_tags($request->konten), 200, '...'),
             'konten' => $request->konten,
             'category_id' => $request->kategori,
             'user_id' => Auth::user()->id,
@@ -81,7 +82,8 @@ class PostController extends Controller
             'title' => $request->title,
             'konten' => $request->konten,
             'category_id' => $request->kategori,
-            'slug' => Str::slug($request->judul, '-'),            
+            'excerpt' => Str::limit(strip_tags($request->konten), 200, '...'),
+            'slug' => Str::slug($request->title, '-'),
         ];
 
         $post = Post::select('sampul', 'id')->whereId($id)->first();
@@ -94,10 +96,10 @@ class PostController extends Controller
             $data['sampul'] = $sampul;
         }
 
-        $post->update($data);        
+        $post->update($data);
 
         $request->session()->flash('sukses', '
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-warning" role="alert">
                 Data berhasil diubah
             </div>
         ');
@@ -106,8 +108,19 @@ class PostController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $post = Post::select('sampul', 'id')->whereId($id)->firstOrFail();
+        File::delete('upload/post/' . $post->sampul);
+        $post->delete();
+
+        $request->session()->flash('sukses', '
+            <div class="alert alert-danger" role="alert">
+                Data berhasil dihapus
+            </div>
+        ');
+
+        return redirect('/post');
+
     }
 }

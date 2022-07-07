@@ -58,7 +58,7 @@ class CategoryController extends Controller
         ]);
 
         $request->session()->flash('sukses', '
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-warning" role="alert">
                 Data berhasil diubah
             </div>
         ');
@@ -70,7 +70,7 @@ class CategoryController extends Controller
         Category::whereId($id)->delete();
 
         $request->session()->flash('sukses', '
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-danger" role="alert">
                 Data berhasil dihapus
             </div>
         ');
