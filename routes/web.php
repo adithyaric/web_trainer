@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -11,9 +12,9 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 
 Route::group(["middleware" => ['auth:sanctum', 'verified']], function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    });
+    // Route::get('/', function () {
+    //     return view('dashboard');
+    // });
     Route::view('/dashboard', "dashboard")->name('dashboard');
 
     //CRUD User:
@@ -26,3 +27,7 @@ Route::resource('kategori', CategoryController::class);
 Route::resource('post', PostController::class);
 Route::get('/post/{id}/konfirmasi', [PostController::class, 'konfirmasi']);
 Route::get('/post/{id}/destroy', [PostController::class, 'destroy']);
+
+Route::get('/', [TutorialController::class, 'index'])->name('home');
+Route::get('/{slug}', [TutorialController::class, 'artikel']);
+Route::get('/artikel-kategori/{slug}', [TutorialController::class, 'kategori']);
