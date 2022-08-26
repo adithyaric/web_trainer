@@ -23,7 +23,7 @@ class TutorialController extends Controller
             $search = '';
         }
 
-        $kategori = Category::select('slug', 'name')->orderBy('name', 'asc')->get();
+        $kategori = Category::orderBy('name', 'asc')->get();        
         $home = true;
         return view('artikel/index', compact('artikel', 'kategori', 'home', 'search'));
     }
@@ -31,7 +31,7 @@ class TutorialController extends Controller
     public function artikel($slug)
     {
         $artikel = Post::select('id', 'title', 'konten', 'category_id', 'created_at', 'sampul')->where('slug', $slug)->firstOrFail();
-        $kategori = Category::select('slug', 'name')->orderBy('name', 'asc')->get();
+        $kategori = Category::orderBy('name', 'asc')->get();
         return view('artikel/artikel', compact('artikel', 'kategori'));
     }
 
@@ -51,7 +51,7 @@ class TutorialController extends Controller
             $search = '';
         }
 
-        $kategori = Category::select('slug', 'name')->orderBy('name', 'asc')->get();
+        $kategori = Category::orderBy('name', 'asc')->get();
         $kategori_dipilih = Category::select('name', 'slug')->where('slug', $slug)->firstOrFail();        
         return view('artikel/index', compact('artikel', 'kategori', 'kategori_dipilih', 'search'));
     }
